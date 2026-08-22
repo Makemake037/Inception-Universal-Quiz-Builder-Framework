@@ -68,3 +68,10 @@ Because the web framework fetches JSON data dynamically (`topics.json` and chapt
    run either localserver.py or localserver.bat to see what fits your need.
 
 
+  ## ☕ Support the Project
+
+If the Inception Quiz Builder Framework has helped you streamline your assessments or build your question banks, consider buying me a coffee!
+
+[☕ Support CaffeinatedRaccoon on Ko-fi](https://ko-fi.com/caffeinatedraccoon)
+
+
