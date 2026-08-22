@@ -11,8 +11,8 @@ When you first clone or extract the repository, the root directory acts as your 
 
 ### 🔹 Step 0: Environment Bootstrapping (`0.setup_env.PY`) 🐍
 * Automatically boots up a local standalone Python runtime to isolate your environment and avoid host system flashing bugs[cite: 9].
-* Creates an isolated virtual environment directory named `quizenv` and upgrades pip[cite: 9].
-* Automatically installs core project dependencies including `pillow`, `numpy`, `diskcache`, and `jinja2`[cite: 1, 9].
+* Creates an isolated virtual environment directory named `quizenv` and upgrades pip.
+* Automatically installs core project dependencies including `pillow`, `numpy`, `diskcache`, and `jinja2`.
 * Presents an interactive hardware acceleration choice menu for the local GGUF vision engine (`llama-cpp-python`), letting you pick prebuilt CUDA/Metal binary wheels, custom source builds, or standard CPU-only wheels[cite: 9].
 
 ### 🔹 Step 1: Framework Generation (`2.inception_builder.py` / Step 1) 🏗️
