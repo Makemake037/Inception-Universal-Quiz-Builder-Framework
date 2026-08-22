@@ -1,5 +1,5 @@
 # 🌌 Inception Quiz Builder Framework 🚀
-
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Buy%20me%20a%20coffee-ff5e5b?style=flat&logo=ko-fi&logoColor=white)](https://ko-fi.com/caffeinatedraccoon)
 Welcome to the **Inception Quiz Builder Framework**—an advanced, multi-modal vision OCR and web-based interactive assessment platform[cite: 11]. It utilizes a structured, two-tier architecture powered by local GGUF vision models, separating your master setup environment from your working assessment directory.
 
 ---
@@ -61,3 +61,9 @@ Because the web framework fetches JSON data dynamically (`topics.json` and chapt
 * **Option A (Quick CLI Command) 💻**: Open your terminal inside the folder and run Python's built-in server:
   ```bash
   python -m http.server 8000
+
+
+
+   run either localserver.py or localserver.bat to see what fits your need.
+
+
