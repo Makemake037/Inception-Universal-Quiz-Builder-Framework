@@ -1,6 +1,6 @@
 # 🌌 Inception Quiz Builder Framework 🚀
 
-Welcome to the **Inception Quiz Builder Framework**—an advanced, multi-modal vision OCR and web-based interactive assessment platform[cite: 11]. It utilizes a structured, two-tier architecture powered by local GGUF vision models, separating your master setup environment from your working assessment directory[cite: 1, 7, 9].
+Welcome to the **Inception Quiz Builder Framework**—an advanced, multi-modal vision OCR and web-based interactive assessment platform[cite: 11]. It utilizes a structured, two-tier architecture powered by local GGUF vision models, separating your master setup environment from your working assessment directory.
 
 ---
 
