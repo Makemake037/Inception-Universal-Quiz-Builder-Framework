@@ -33,8 +33,11 @@ Inside your working folder, use the following numbered tools to create, organize
 
 ### 🔹 Step 4: Vision Model Configuration (`4.model_manager.py`) 👁️
 * Opens a graphical Vision Model Manager interface window.
-* Allows you to browse and select your local **GGUF Model** file and **MMPROJ File** paths[cite: 10, 19].
-* Saves these file paths directly into a `model_config.json` configuration file so that the OCR vision engine can read them globally[cite: 1, 10].
+* Allows you to browse and select your local **GGUF Model** file and **MMPROJ File** paths
+* Saves these file paths directly into a `model_config.json` configuration file so that the OCR vision engine can read them globally
+* models should not be safetensor file ,script only accepts gguf.
+* you need 2 gguf files one for vision(mmproj in name) and other for llm.
+* ## for models use huggingface repos. try to go for    Q_4_M-.gguf 
 
 ### 🔹 Step 5: Serial-Numbered Chapter Generation (`5.Setup-multiple-JSON.PY`) 📦
 * Collects multi-line chapter names, strips punctuation/parentheses via slugification, and generates clean, serial-numbered JSON question bank files pre-loaded with empty arrays[cite: 4, 7].
