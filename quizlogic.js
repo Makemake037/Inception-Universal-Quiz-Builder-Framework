@@ -46,20 +46,18 @@ async function loadQuiz() {
         if (selectedFiles.length === 0) {
             document.getElementById('quiz-container').innerHTML = `<h3 style="padding:10px; color:#555;">Please select at least one topic from the dropdown menu.</h3>`;
             updateMainTitle("NO TOPIC SELECTED");
-            document.getElementById('topicSelectText').innerText = "Select topics...";
+            //  document.getElementById('topicSelectText').innerText = "Select topics...";
             return;
         }
 
         // 2. Save selections to memory
         localStorage.setItem('activeQuizTopics', JSON.stringify(selectedFiles));
 
-        // 3. Update Text UI intelligently
+        // 3. Update Text UI intelligently without missing elements
         if (selectedFiles.length === 1) {
             const singleTopicName = checkedBoxes[0].dataset.name;
-            document.getElementById('topicSelectText').innerText = singleTopicName;
             updateMainTitle(singleTopicName);
         } else {
-            document.getElementById('topicSelectText').innerText = `${selectedFiles.length} Topics Selected`;
             updateMainTitle(`MIXED MOCK TEST (${selectedFiles.length} Topics)`);
         }
 
@@ -374,12 +372,12 @@ async function initializeApp() {
             container.appendChild(wrapper);
         });
 
-        // Fallback: If nothing is saved, select the first one by default
+        // Fallback: If nothing is saved, select ALL topics by default
         const allCheckboxes = document.querySelectorAll('.topic-checkbox');
         if (savedTopics.length === 0 && allCheckboxes.length > 0) {
-            allCheckboxes[0].checked = true;
+            // Loop through and check every single box
+            allCheckboxes.forEach(cb => cb.checked = true);
         }
-
         loadQuiz();
 
     } catch (error) {

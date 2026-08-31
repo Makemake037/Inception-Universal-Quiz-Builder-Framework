@@ -1,7 +1,6 @@
 # 🌌 Inception Quiz Builder Framework 🚀
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Buy%20me%20a%20coffee-ff5e5b?style=flat&logo=ko-fi&logoColor=white)](https://ko-fi.com/caffeinatedraccoon)
 
-Welcome to the **Inception Quiz Builder Framework**—an advanced, multi-modal vision OCR and web-based interactive assessment platform[cite: 11]. It utilizes a structured, two-tier architecture powered by local GGUF vision models, separating your master setup environment from your working assessment directory.
+Welcome to the **Inception Quiz Builder Framework**—an advanced, multi-modal vision OCR and web-based interactive assessment platform[cite: 11]. It utilizes a structured, two-tier architecture powered by local GGUF vision models, separating your master setup environment from your working assessment directory[cite: 1, 7, 9].
 
 ---
 
@@ -11,8 +10,8 @@ When you first clone or extract the repository, the root directory acts as your 
 
 ### 🔹 Step 0: Environment Bootstrapping (`0.setup_env.PY`) 🐍
 * Automatically boots up a local standalone Python runtime to isolate your environment and avoid host system flashing bugs[cite: 9].
-* Creates an isolated virtual environment directory named `quizenv` and upgrades pip.
-* Automatically installs core project dependencies including `pillow`, `numpy`, `diskcache`, and `jinja2`.
+* Creates an isolated virtual environment directory named `quizenv` and upgrades pip[cite: 9].
+* Automatically installs core project dependencies including `pillow`, `numpy`, `diskcache`, and `jinja2`[cite: 1, 9].
 * Presents an interactive hardware acceleration choice menu for the local GGUF vision engine (`llama-cpp-python`), letting you pick prebuilt CUDA/Metal binary wheels, custom source builds, or standard CPU-only wheels[cite: 9].
 
 ### 🔹 Step 1: Framework Generation (`2.inception_builder.py` / Step 1) 🏗️
@@ -33,11 +32,8 @@ Inside your working folder, use the following numbered tools to create, organize
 
 ### 🔹 Step 4: Vision Model Configuration (`4.model_manager.py`) 👁️
 * Opens a graphical Vision Model Manager interface window.
-* Allows you to browse and select your local **GGUF Model** file and **MMPROJ File** paths
-* Saves these file paths directly into a `model_config.json` configuration file so that the OCR vision engine can read them globally
-* models should not be safetensor file ,script only accepts gguf.
-* you need 2 gguf files one for vision(mmproj in name) and other for llm.
-* ## for models use huggingface repos. try to go for    Q_4_M-.gguf 
+* Allows you to browse and select your local **GGUF Model** file and **MMPROJ File** paths[cite: 10, 19].
+* Saves these file paths directly into a `model_config.json` configuration file so that the OCR vision engine can read them globally[cite: 1, 10].
 
 ### 🔹 Step 5: Serial-Numbered Chapter Generation (`5.Setup-multiple-JSON.PY`) 📦
 * Collects multi-line chapter names, strips punctuation/parentheses via slugification, and generates clean, serial-numbered JSON question bank files pre-loaded with empty arrays[cite: 4, 7].
@@ -65,16 +61,3 @@ Because the web framework fetches JSON data dynamically (`topics.json` and chapt
 * **Option A (Quick CLI Command) 💻**: Open your terminal inside the folder and run Python's built-in server:
   ```bash
   python -m http.server 8000
-
-
-
-   run either localserver.py or localserver.bat to see what fits your need.
-
-
-  ## ☕ Support the Project
-
-If the Inception Quiz Builder Framework has helped you streamline your assessments or build your question banks, consider buying me a coffee!
-
-[☕ Support CaffeinatedRaccoon on Ko-fi](https://ko-fi.com/caffeinatedraccoon)
-
-

@@ -156,9 +156,54 @@ def check_or_fetch_cuda(version_choice):
     print(f"\n[INFO] Launching extraction for CUDA {cfg['ver']}...")
     subprocess.run(f"{local_installer} -s", shell=True)
     return True
+    
+def auto_detect_and_install_cuda(venv_python):
+    print("\n[INFO] Scanning system for existing CUDA Toolkit (nvcc)...")
+    try:
+        # Query the NVIDIA CUDA Compiler (nvcc) for its version
+        result = subprocess.run("nvcc --version", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+        if result.returncode == 0:
+            import re
+            # Extract the version number (e.g., "release 12.4" -> "12.4")
+            match = re.search(r"release (\d+\.\d+)", result.stdout)
+            if match:
+                version = match.group(1)
+                print(f"[SUCCESS] Detected local CUDA Toolkit version: {version}")
+                
+                # Format version to match wheel tags (e.g., 12.4 -> cu124)
+                version_clean = version.replace(".", "")
+                tag = f"cu{version_clean}"
+                valid_tags = ["cu130", "cu125", "cu124", "cu123", "cu122", "cu121", "cu118"]
+                
+                # Try to use a prebuilt wheel first for instant installation
+                if tag in valid_tags:
+                    print(f"-> Found matching prebuilt wheel [{tag}]. Installing...")
+                    success = run_cmd(f'"{venv_python}" -m pip install --no-cache-dir llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/{tag}')
+                    if success: return
+                
+                # Fallback to source build using their local CUDA environment
+                print(f"-> No exact prebuilt wheel for {version}. Initiating local source build using installed CUDA...")
+
+                print("-> Installing C++ build dependencies...")
+                run_cmd(f'"{venv_python}" -m pip install --no-cache-dir cmake scikit-build-core ninja')
+                # ----------------------------------------------
+                os.environ["CMAKE_ARGS"] = "-DGGML_CUDA=on"
+                success = run_cmd(f'"{venv_python}" -m pip install --no-cache-dir llama-cpp-python --force-reinstall --no-build-isolation')
+                if success: return
+                
+        else:
+            print("[-] 'nvcc' not found. CUDA Toolkit does not appear to be installed on system PATH.")
+    except Exception as e:
+        print(f"[-] Error detecting CUDA: {e}")
+        
+    # Ultimate fallback if everything fails
+    print("[WARNING] Auto-detect failed or no compatible GPU toolchain found. Falling back to CPU wheel...")
+    run_cmd(f'"{venv_python}" -m pip install --no-cache-dir llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu')    
+    
 
 def create_smart_batch_file():
-    """Generates 3.ocr-AIO.bat with parent-directory fallback support."""
+    """Generates 4.ocr-AIO.bat with parent-directory fallback support."""
     batch_content = """@echo off
 :: 1. Move to the directory where this batch file lives
 cd /d "%~dp0"
@@ -237,9 +282,13 @@ def main():
     print(" [14] Custom Build: Metal GPU (macOS)")
     print("------------------------------------------------------------------")
     print(" [15] Standard CPU-Only Prebuilt Wheel (Instant, Lightweight, Default)")
+    print(" [16] Auto-Detect CUDA & Install (Smart Auto-Build/Wheel)")
     print("="*70)
-
-    choice = input("Select your backend option (1-15) [Default: 15]: ").strip()
+    
+    choice = input("Select your backend option (1-16) [Default: 16]: ").strip()
+    if choice == "":
+        choice = "16"
+        
     print("\n[4/4] Configuring Local GGUF Vision OCR Engine...")
 
     prebuilt_map = {
@@ -279,6 +328,9 @@ def main():
         success = run_cmd(f'"{venv_python}" -m pip install --no-cache-dir llama-cpp-python --force-reinstall --no-build-isolation')
         if not success:
             run_cmd(f'"{venv_python}" -m pip install --no-cache-dir llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu')
+
+    elif choice == "16":
+        auto_detect_and_install_cuda(venv_python)
 
     else:
         print("-> Selecting standard CPU-only prebuilt wheel (Instant setup)...")
